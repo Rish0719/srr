@@ -11,7 +11,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-const PASSWORD = "0720";
+const PASSWORD = "072009";
 
 function checkPassword() {
   const inputPass = document.getElementById("password").value;
