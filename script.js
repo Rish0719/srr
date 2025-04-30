@@ -1,4 +1,4 @@
-// Firebase config (use your own if changed)
+// Firebase config (your working config)
 const firebaseConfig = {
   apiKey: "AIzaSyBRN7k17JtwvbTJivpuPAdyv4NGR_J0tww",
   authDomain: "srchat-d9f03.firebaseapp.com",
@@ -11,7 +11,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
 const PASSWORD = "0720";
 
 function checkPassword() {
@@ -19,12 +18,15 @@ function checkPassword() {
   const username = document.getElementById("username").value.trim();
 
   if (!username) return alert("Enter your name.");
-  if (inputPass !== PASSWORD) return alert("Wrong password!");
-
   localStorage.setItem("chatUser", username);
-  document.getElementById("login").style.display = "none";
-  document.getElementById("chat-container").style.display = "flex";
-  listenForMessages();
+
+  if (inputPass === PASSWORD) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("chat-container").style.display = "flex";
+    listenForMessages();
+  } else {
+    alert("Wrong password!");
+  }
 }
 
 function sendMessage() {
