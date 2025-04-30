@@ -2,13 +2,15 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>SR Chat</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <div id="login">
+  <h2>Enter Your Name</h2>
+  <input type="text" id="username" placeholder="Enter your name" />
   <h2>Enter Chat Password</h2>
   <input type="password" id="password" placeholder="Enter password" />
   <button onclick="checkPassword()">Login</button>
@@ -26,6 +28,7 @@
   </form>
 </div>
 
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 <script src="script.js"></script>
