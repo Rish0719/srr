@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
+  <title>Private Chat</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <div id="login">
+  <h2>Welcome</h2>
   <input type="text" id="username" placeholder="Your name" />
   <input type="password" id="password" placeholder="Password" />
-  <button onclick="checkPassword()">Enter</button>
+  <button onclick="checkPassword()">Enter Chat</button>
 </div>
 
 <div id="chat-container">
   <div class="chat-box" id="chatBox"></div>
   <form class="input-area" onsubmit="event.preventDefault(); sendMessage();">
-    <input type="text" id="messageInput" placeholder="Type..." autocomplete="off" />
+    <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off" />
     <button type="submit">Send</button>
     <button type="button" class="clear-btn" onclick="clearChat()">Clear</button>
   </form>
