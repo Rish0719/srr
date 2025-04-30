@@ -1,4 +1,3 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -8,20 +7,24 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #121212;
   font-family: 'Segoe UI', sans-serif;
-  color: #fff;
+  background-color: #121212;
+  color: white;
+  overflow: hidden;
 }
 
-/* Login screen */
+/* Login Screen */
 #login {
-  height: 100vh;
+  position: fixed;
+  inset: 0;
+  background-color: #121212;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   gap: 15px;
+  padding: 20px;
+  z-index: 100;
 }
 
 #login input {
@@ -43,7 +46,7 @@ html, body {
   cursor: pointer;
 }
 
-/* Chat container */
+/* Chat Area (hidden by default) */
 #chat-container {
   display: none;
   height: 100vh;
@@ -51,7 +54,7 @@ html, body {
   flex-direction: column;
 }
 
-/* Chat messages */
+/* Messages */
 .chat-box {
   flex: 1;
   overflow-y: auto;
@@ -60,7 +63,6 @@ html, body {
   flex-direction: column;
 }
 
-/* Sent/received styles */
 .chat-message {
   margin: 6px 0;
   padding: 10px 14px;
@@ -73,19 +75,34 @@ html, body {
   align-self: flex-end;
   background-color: #00796b;
   color: white;
+  text-align: right;
 }
 
 .chat-message.other {
   align-self: flex-start;
   background-color: #2a2a2a;
+  color: white;
+  text-align: left;
 }
 
-/* Input area */
+.status {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* Input bar */
 .input-area {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1f1f1f;
   display: flex;
   gap: 8px;
   padding: 10px;
-  background-color: #1f1f1f;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 .input-area input[type="text"] {
@@ -93,9 +110,10 @@ html, body {
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid #ccc;
   outline: none;
-  color: black;
+  background-color: #fff;
+  color: #000;
 }
 
 .input-area button {
@@ -114,20 +132,4 @@ html, body {
 .input-area .clear-btn {
   background-color: #b71c1c;
   color: white;
-}
-
-/* Responsive tweaks */
-@media (max-width: 600px) {
-  .chat-message {
-    font-size: 14px;
-  }
-
-  .input-area button {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  #login input {
-    font-size: 14px;
-  }
 }
