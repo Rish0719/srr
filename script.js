@@ -1,4 +1,4 @@
-// Firebase config for your project
+// Firebase config (your working config)
 const firebaseConfig = {
   apiKey: "AIzaSyBRN7k17JtwvbTJivpuPAdyv4NGR_J0tww",
   authDomain: "srchat-d9f03.firebaseapp.com",
@@ -9,17 +9,15 @@ const firebaseConfig = {
   appId: "1:381081144538:web:ecbfb57657bb80162f29e3"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
 const PASSWORD = "072009";
 
 function checkPassword() {
   const inputPass = document.getElementById("password").value;
   const username = document.getElementById("username").value.trim();
 
-  if (!username) return alert("Please enter your name.");
+  if (!username) return alert("Enter your name.");
   localStorage.setItem("chatUser", username);
 
   if (inputPass === PASSWORD) {
@@ -58,13 +56,7 @@ function listenForMessages() {
       const msg = data[key];
       const div = document.createElement("div");
       div.className = "chat-message";
-
-      if (msg.sender === currentUser) {
-        div.classList.add("self");
-      } else {
-        div.classList.add("other");
-      }
-
+      div.classList.add(msg.sender === currentUser ? "self" : "other");
       div.textContent = `${msg.sender}: ${msg.text}`;
       chatBox.appendChild(div);
     }
