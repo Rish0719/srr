@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Chatbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="login">
+  <h2>Enter Chat Password</h2>
+  <input type="password" id="password" placeholder="Enter password" />
+  <button onclick="checkPassword()">Login</button>
+</div>
+
+<div id="chat-container">
+  <div class="top-bar">
+    <div>Simple Chat</div>
+    <button onclick="clearChat()">Clear Chat</button>
+  </div>
+  <div class="chat-box" id="chatBox"></div>
+  <div class="input-area">
+    <input type="text" id="messageInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
