@@ -1,4 +1,4 @@
-// Firebase config from your setup
+// Firebase config for your project
 const firebaseConfig = {
   apiKey: "AIzaSyBRN7k17JtwvbTJivpuPAdyv4NGR_J0tww",
   authDomain: "srchat-d9f03.firebaseapp.com",
@@ -16,8 +16,13 @@ const db = firebase.database();
 const PASSWORD = "072009";
 
 function checkPassword() {
-  const input = document.getElementById("password").value;
-  if (input === PASSWORD) {
+  const inputPass = document.getElementById("password").value;
+  const username = document.getElementById("username").value.trim();
+
+  if (!username) return alert("Please enter your name.");
+  localStorage.setItem("chatUser", username);
+
+  if (inputPass === PASSWORD) {
     document.getElementById("login").style.display = "none";
     document.getElementById("chat-container").style.display = "flex";
     listenForMessages();
@@ -29,9 +34,12 @@ function checkPassword() {
 function sendMessage() {
   const input = document.getElementById("messageInput");
   const msg = input.value.trim();
-  if (msg) {
+  const user = localStorage.getItem("chatUser");
+
+  if (msg && user) {
     db.ref("messages").push({
       text: msg,
+      sender: user,
       timestamp: Date.now()
     });
     input.value = "";
@@ -40,15 +48,27 @@ function sendMessage() {
 
 function listenForMessages() {
   const chatBox = document.getElementById("chatBox");
+  const currentUser = localStorage.getItem("chatUser");
+
   db.ref("messages").on("value", snapshot => {
     const data = snapshot.val();
     chatBox.innerHTML = "";
+
     for (let key in data) {
+      const msg = data[key];
       const div = document.createElement("div");
       div.className = "chat-message";
-      div.textContent = data[key].text;
+
+      if (msg.sender === currentUser) {
+        div.classList.add("self");
+      } else {
+        div.classList.add("other");
+      }
+
+      div.textContent = `${msg.sender}: ${msg.text}`;
       chatBox.appendChild(div);
     }
+
     chatBox.scrollTop = chatBox.scrollHeight;
   });
 }
