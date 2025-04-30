@@ -1,11 +1,26 @@
-﻿const PASSWORD = "072009";
+// Firebase config from your setup
+const firebaseConfig = {
+  apiKey: "AIzaSyBRN7k17JtwvbTJivpuPAdyv4NGR_J0tww",
+  authDomain: "srchat-d9f03.firebaseapp.com",
+  databaseURL: "https://srchat-d9f03-default-rtdb.firebaseio.com",
+  projectId: "srchat-d9f03",
+  storageBucket: "srchat-d9f03.appspot.com",
+  messagingSenderId: "381081144538",
+  appId: "1:381081144538:web:ecbfb57657bb80162f29e3"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const PASSWORD = "072009";
 
 function checkPassword() {
   const input = document.getElementById("password").value;
   if (input === PASSWORD) {
     document.getElementById("login").style.display = "none";
     document.getElementById("chat-container").style.display = "flex";
-    loadMessages();
+    listenForMessages();
   } else {
     alert("Wrong password!");
   }
@@ -13,32 +28,33 @@ function checkPassword() {
 
 function sendMessage() {
   const input = document.getElementById("messageInput");
-  const message = input.value.trim();
-  if (message) {
-    const messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-    messages.push(message);
-    localStorage.setItem("chatMessages", JSON.stringify(messages));
+  const msg = input.value.trim();
+  if (msg) {
+    db.ref("messages").push({
+      text: msg,
+      timestamp: Date.now()
+    });
     input.value = "";
-    loadMessages();
   }
 }
 
-function loadMessages() {
+function listenForMessages() {
   const chatBox = document.getElementById("chatBox");
-  const messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-  chatBox.innerHTML = "";
-  messages.forEach(msg => {
-    const div = document.createElement("div");
-    div.className = "chat-message";
-    div.textContent = msg;
-    chatBox.appendChild(div);
+  db.ref("messages").on("value", snapshot => {
+    const data = snapshot.val();
+    chatBox.innerHTML = "";
+    for (let key in data) {
+      const div = document.createElement("div");
+      div.className = "chat-message";
+      div.textContent = data[key].text;
+      chatBox.appendChild(div);
+    }
+    chatBox.scrollTop = chatBox.scrollHeight;
   });
-  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function clearChat() {
-  if (confirm("Clear all chat messages?")) {
-    localStorage.removeItem("chatMessages");
-    loadMessages();
+  if (confirm("Clear chat for everyone?")) {
+    db.ref("messages").remove();
   }
 }
